@@ -1,0 +1,53 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+buildscript {
+    ext {
+        springBootVersion = '2.1.2.RELEASE'
+        springVersion = '5.1.4.RELEASE'
+        jacksonVersion = ' 2.9.8'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE"
+    }
+}
+
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+
+group 'com.metal'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+version = '1.0'
+
+idea {
+    module {
+        jdkName "1.8"
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    def defaultBoot = ['spring-boot-starter',
+                       'spring-boot-starter-parent',
+                       'spring-boot-starter-web'
+    ]
+
+    defaultBoot.each { bootModule ->
+        compile("org.springframework.boot:$bootModule:$springBootVersion")
+    }
+
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+
+}
