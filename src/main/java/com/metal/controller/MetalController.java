@@ -1,12 +1,12 @@
 package com.metal.controller;
 
 
+import com.metal.entity.Developer;
 import com.metal.service.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -27,6 +27,16 @@ public class MetalController {
     @GetMapping("/greeting")
     public String getGreeting(){
         return greetingService.getGeneralGreeting();
+    }
+
+    @GetMapping("/developers/all")
+    public List<Developer> getAllDevelopers(){
+        return greetingService.getall();
+    }
+
+    @GetMapping("/developers")
+    public List<Developer> getDevelopersByRole(@RequestParam("level") String level){
+        return greetingService.getByLevel(level);
     }
 
 }
